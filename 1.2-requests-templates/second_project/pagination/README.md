@@ -10,7 +10,7 @@
 
 Для чтения csv-файла можете использовать [DictReader](https://docs.python.org/3/library/csv.html#csv.DictReader) и учтите, что файл в кодировке `utf-8`.
 
-![Пример результата](./res/result.png)
+![Пример результата](res/result.png)
 
 ## Документация по проекту
 

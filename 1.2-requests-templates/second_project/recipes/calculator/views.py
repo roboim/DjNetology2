@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 DATA = {
@@ -15,9 +16,29 @@ DATA = {
         'колбаса, ломтик': 1,
         'сыр, ломтик': 1,
         'помидор, ломтик': 1,
-    },
+    }
     # можете добавить свои рецепты ;)
 }
+
+
+def recipe_calculator(request, item):
+    multiply = request.GET.get('servings')
+    if multiply is None:
+        multiply = 1
+    recipe = dict()
+    recipe_out = dict()
+    if item.lower() in DATA:
+        recipe = DATA[item.lower()]
+    try:
+        for component in recipe:
+            print(component, recipe[component])
+            recipe_out[component] = float(recipe[component]) * int(multiply)
+    except Exception as error:
+        print(f'Ошибка данных {error}')
+        recipe_out = {}
+    context = dict()
+    context['recipe'] = recipe_out
+    return render(request, 'calculator/index.html', context=context)
 
 # Напишите ваш обработчик. Используйте DATA как источник данных
 # Результат - render(request, 'calculator/index.html', context)
